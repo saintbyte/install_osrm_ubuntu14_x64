@@ -10,6 +10,11 @@ touch /etc/sysctl.con
 echo "kernel.shmall=1152921504606846720" >> /etc/sysctl.conf
 echo "kernel.shmmax=18446744073709551615" >> /etc/sysctl.conf
 sysctl -p
+echo "vm.overcommit_ratio = 100" >> /etc/sysctl.conf
+echo "vm.overcommit_memory = 2" >> /etc/sysctl.conf
+sysctl -p
+echo 2 > /proc/sys/vm/overcommit_memory
+echo 100 > /proc/sys/vm/overcommit_ratio
 
 echo "2"
 apt-get -y install \
