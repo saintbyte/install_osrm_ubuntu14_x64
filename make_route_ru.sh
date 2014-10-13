@@ -17,4 +17,10 @@ touch ${OSRM_DIR}.stxxl
 echo "disk=${DISK}/osrm_tmp_file,156000,syscall" > ${OSRM_DIR}.stxxl
 echo "Route make"
 cd ${OSRM_DIR}
-nice -n -19 ${OSRM_DIR}osrm-extract -p ${OSRM_DIR}/profile.lua -t ${CORES} $PLANET_OSM_PATH 2>${OSRM_DIR}output 3>${OSRM_DIR}err
+if [ ! -f "$PLANET_OSM_PATH_RU.osm" ] 
+then
+    nice -n -19 ${OSRM_DIR}osrm-extract -p ${OSRM_DIR}/profile.lua -t ${CORES} $PLANET_OSM_PATH_RU.osm 2>${OSRM_DIR}output 3>${OSRM_DIR}err
+else
+    echo "Have OSRM file =)"
+fi
+nice -n -19 ${OSRM_DIR}osrm-prepare $PLANET_OSM_PATH_RU.osrm
